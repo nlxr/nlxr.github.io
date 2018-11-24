@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://nlxr.github.io/2018/11/22/hello-world/</loc>
+    
+    <lastmod>2018-11-24T13:00:23.714Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://nlxr.github.io/2018/11/24/java%E7%8C%9C%E5%AD%97%E6%AF%8D%E6%B8%B8%E6%88%8F/</loc>
     
-    <lastmod>2018-11-24T12:56:15.983Z</lastmod>
+    <lastmod>2018-11-24T12:58:24.680Z</lastmod>
     
   </url>
   
@@ -40,13 +47,6 @@
     <loc>https://nlxr.github.io/about/index.html</loc>
     
     <lastmod>2018-11-22T11:56:50.999Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://nlxr.github.io/2018/11/22/hello-world/</loc>
-    
-    <lastmod>2018-11-22T10:20:09.598Z</lastmod>
     
   </url>
   
