@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="java基础,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="笨鸟先飞" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="java基础实现猜字母游戏内容程序随机产生5个字母，由玩家来猜测，可猜测多次，每猜测一次，由系统提示结果，完全正确则游戏结束，计算游戏得分并输出，若没有猜对，则提示猜测结果，如猜对几个字符以及猜对了几个字符的位置，并提示玩家继续游戏。">
+<meta name="keywords" content="java基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java猜字母游戏">
+<meta property="og:url" content="https://nlxr.github.io/2018/11/24/java猜字母游戏/index.html">
+<meta property="og:site_name" content="笨鸟先飞">
+<meta property="og:description" content="java基础实现猜字母游戏内容程序随机产生5个字母，由玩家来猜测，可猜测多次，每猜测一次，由系统提示结果，完全正确则游戏结束，计算游戏得分并输出，若没有猜对，则提示猜测结果，如猜对几个字符以及猜对了几个字符的位置，并提示玩家继续游戏。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-24T12:49:55.593Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java猜字母游戏">
+<meta name="twitter:description" content="java基础实现猜字母游戏内容程序随机产生5个字母，由玩家来猜测，可猜测多次，每猜测一次，由系统提示结果，完全正确则游戏结束，计算游戏得分并输出，若没有猜对，则提示猜测结果，如猜对几个字符以及猜对了几个字符的位置，并提示玩家继续游戏。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://nlxr.github.io/2018/11/24/java猜字母游戏/">
+
+
+
+
+
+  <title>java猜字母游戏 | 笨鸟先飞</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/nlxr"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">笨鸟先飞</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">人生如逆旅，我亦是行人</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-something">
+          <a href="/something" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            有料
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://nlxr.github.io/2018/11/24/java猜字母游戏/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="nlxr">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542974213775&di=9de8cc5f8486fc92bccc2f0773e62909&imgtype=0&src=http%3A%2F%2Fwww.officedoyen.com%2Fuploads%2Fallimg%2F150402%2F1-150402001646100-lp.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="笨鸟先飞">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">java猜字母游戏</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-24T19:41:36+08:00">
+                2018-11-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="java基础实现猜字母游戏"><a href="#java基础实现猜字母游戏" class="headerlink" title="java基础实现猜字母游戏"></a>java基础实现猜字母游戏</h1><h2 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h2><p>程序随机产生5个字母，由玩家来猜测，可猜测多次，每猜测一次，由系统提示结果，完全正确则游戏结束，计算游戏得分并输出，若没有猜对，则提示猜测结果，如猜对几个字符以及猜对了几个字符的位置，并提示玩家继续游戏。<br><a id="more"></a></p>
+<h2 id="程序设计及内容"><a href="#程序设计及内容" class="headerlink" title="程序设计及内容"></a>程序设计及内容</h2><h5 id="1-实现字母生成方法"><a href="#1-实现字母生成方法" class="headerlink" title="1.实现字母生成方法"></a>1.实现字母生成方法</h5><p>声明一个字符类型数组存储26个大写字母，再声明一个boolean数组，长度为26，初始值均为false，若某个字母被选中，设置该字母在数组中对应位置上的值为true，表示该字母被选中。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    *随机生成需要猜测的字母序列</span></span><br><span class="line"><span class="comment">    *<span class="doctag">@return</span> 存储随机字符的数组</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">char</span>[] generate()&#123;</span><br><span class="line">        <span class="keyword">char</span>[] chs =<span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">5</span>];</span><br><span class="line">        <span class="keyword">char</span> letters[]= &#123;<span class="string">'A'</span>,<span class="string">'B'</span>,<span class="string">'C'</span>,<span class="string">'D'</span>,<span class="string">'E'</span>,<span class="string">'F'</span>,<span class="string">'G'</span>,<span class="string">'H'</span>,<span class="string">'I'</span>,<span class="string">'J'</span>,<span class="string">'K'</span>,<span class="string">'L'</span>,<span class="string">'M'</span>,<span class="string">'N'</span>,<span class="string">'O'</span>,<span class="string">'P'</span>,<span class="string">'Q'</span>,<span class="string">'R'</span>,<span class="string">'S'</span>,</span><br><span class="line">                <span class="string">'T'</span>,<span class="string">'U'</span>,<span class="string">'V'</span>,<span class="string">'W'</span>,<span class="string">'X'</span>,<span class="string">'Y'</span>,<span class="string">'Z'</span>&#125;;</span><br><span class="line">        <span class="keyword">boolean</span> flags[]=<span class="keyword">new</span> <span class="keyword">boolean</span>[letters.length];  <span class="comment">//记载字母是否被选中</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;chs.length;i++) &#123;               <span class="comment">//随机选择5个字母</span></span><br><span class="line">            <span class="keyword">int</span> index;</span><br><span class="line">            <span class="keyword">do</span> &#123;</span><br><span class="line">                index =(<span class="keyword">int</span>)(Math.random()*(letters.length));  <span class="comment">//0到25的随机数</span></span><br><span class="line">            &#125;<span class="keyword">while</span>(flags[index]==<span class="keyword">true</span>);   <span class="comment">//当下标对应的开关为true时，表示已存过，应重新生成index</span></span><br><span class="line">                                          <span class="comment">//当下标对应的开头为false时，表示未存过，则index可用，do...while结束</span></span><br><span class="line">            chs[i]=letters[index];</span><br><span class="line">            flags[index]=<span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> chs;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="2-实现字母检测方法"><a href="#2-实现字母检测方法" class="headerlink" title="2.实现字母检测方法"></a>2.实现字母检测方法</h5><p>逐一取出玩家录入的每个字符与结果字符串一一比较，比较字符本身和字符所在位置，并记载比较结果。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 比较玩家输入字母序列和程序所生成字母序列，逐一比较字符以及位置，并记载比较结果</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> chs</span></span><br><span class="line"><span class="comment">     *            程序生成字母序列</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> input</span></span><br><span class="line"><span class="comment">     *            玩家输入字符序列</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 存储比较的结果</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> []check (<span class="keyword">char</span>[] chs,<span class="keyword">char</span>[] input) &#123;</span><br><span class="line">        <span class="keyword">int</span> result[]=<span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;input.length;i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;chs.length;j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(input[i]==chs[j]) &#123;</span><br><span class="line">                    result[<span class="number">1</span>]++;</span><br><span class="line">                    <span class="keyword">if</span>(i==j) &#123;</span><br><span class="line">                        result[<span class="number">0</span>]++;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="3-实现主方法"><a href="#3-实现主方法" class="headerlink" title="3.实现主方法"></a>3.实现主方法</h5><ul>
+<li>调用generate()方法，产生5个字母。</li>
+<li>使用while(true)循环允许多次猜测。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> count=<span class="number">0</span>;            <span class="comment">//记录玩家猜测的总次数</span></span><br><span class="line">        <span class="keyword">char</span> input[]=<span class="keyword">null</span>;      <span class="comment">//保存用户猜测的数据</span></span><br><span class="line">        <span class="keyword">char</span> chs[]=generate();       <span class="comment">//保存随机生成的字母</span></span><br><span class="line">        <span class="keyword">int</span> result[]=<span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>]; <span class="comment">//第一个保存完全猜对字母个数 第二个保存猜对字母个数</span></span><br><span class="line">        </span><br><span class="line">        Scanner scanner=<span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        System.out.println(<span class="string">"GuessingGame 欢迎尝试猜字母游戏!"</span>);</span><br><span class="line">        </span><br><span class="line">        System.out.println(<span class="string">"游戏开始，请输入所猜的5个字母序列：（exit-退出）"</span>);</span><br><span class="line">        <span class="keyword">while</span>(<span class="keyword">true</span>) &#123;</span><br><span class="line">            String inputStr=scanner.next().trim().toUpperCase();  <span class="comment">//scanner.next()是从键盘输入一个字符串，trim是去掉字符串首尾的空格，toUpperCase是把字符串中的字母转换成大写</span></span><br><span class="line">            <span class="keyword">if</span>(<span class="string">"EXIT"</span>.equals(inputStr)) &#123;</span><br><span class="line">                System.out.println(<span class="string">"感谢您的尝试，再见！"</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            input=inputStr.toCharArray(); <span class="comment">//把字符串转为char字符数组</span></span><br><span class="line">            result=check(chs,input);</span><br><span class="line">            <span class="keyword">if</span>(result[<span class="number">0</span>]==chs.length) &#123;</span><br><span class="line">                <span class="keyword">int</span> score=<span class="number">100</span>*chs.length-count*<span class="number">10</span>;</span><br><span class="line">                System.out.println(<span class="string">"恭喜你猜对了！你的得分是"</span>+score);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                count++;</span><br><span class="line">                System.out.println(<span class="string">"你猜对"</span>+result[<span class="number">1</span>]+<span class="string">"个字符，其中"</span>+result[<span class="number">0</span>]+<span class="string">"个字符位置正确!(总次数="</span>+count+<span class="string">",exit-退出)"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        scanner.close();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="4-完整代码"><a href="#4-完整代码" class="headerlink" title="4.完整代码"></a>4.完整代码</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> guess_da;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GuessingGame</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> count=<span class="number">0</span>;            <span class="comment">//记录玩家猜测的总次数</span></span><br><span class="line">        <span class="keyword">char</span> input[]=<span class="keyword">null</span>;      <span class="comment">//保存用户猜测的数据</span></span><br><span class="line">        <span class="keyword">char</span> chs[]=generate();       <span class="comment">//保存随机生成的字母</span></span><br><span class="line">        <span class="keyword">int</span> result[]=<span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>]; <span class="comment">//第一个保存完全猜对字母个数 第二个保存猜对字母个数</span></span><br><span class="line">        </span><br><span class="line">        Scanner scanner=<span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        System.out.println(<span class="string">"GuessingGame 欢迎尝试猜字母游戏!"</span>);</span><br><span class="line">        </span><br><span class="line">        System.out.println(<span class="string">"游戏开始，请输入所猜的5个字母序列：（exit-退出）"</span>);</span><br><span class="line">        <span class="keyword">while</span>(<span class="keyword">true</span>) &#123;</span><br><span class="line">            String inputStr=scanner.next().trim().toUpperCase();  <span class="comment">//scanner.next()是从键盘输入一个字符串，trim是去掉字符串首尾的空格，toUpperCase是把字符串中的字母转换成大写</span></span><br><span class="line">            <span class="keyword">if</span>(<span class="string">"EXIT"</span>.equals(inputStr)) &#123;</span><br><span class="line">                System.out.println(<span class="string">"感谢您的尝试，再见！"</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            input=inputStr.toCharArray(); <span class="comment">//把字符串转为char字符数组</span></span><br><span class="line">            result=check(chs,input);</span><br><span class="line">            <span class="keyword">if</span>(result[<span class="number">0</span>]==chs.length) &#123;</span><br><span class="line">                <span class="keyword">int</span> score=<span class="number">100</span>*chs.length-count*<span class="number">10</span>;</span><br><span class="line">                System.out.println(<span class="string">"恭喜你猜对了！你的得分是"</span>+score);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                count++;</span><br><span class="line">                System.out.println(<span class="string">"你猜对"</span>+result[<span class="number">1</span>]+<span class="string">"个字符，其中"</span>+result[<span class="number">0</span>]+<span class="string">"个字符位置正确!(总次数="</span>+count+<span class="string">",exit-退出)"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        scanner.close();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    *随机生成需要猜测的字母序列</span></span><br><span class="line"><span class="comment">    *<span class="doctag">@return</span> 存储随机字符的数组</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">char</span>[] generate()&#123;</span><br><span class="line">        <span class="keyword">char</span>[] chs =<span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">5</span>];</span><br><span class="line">        <span class="keyword">char</span> letters[]= &#123;<span class="string">'A'</span>,<span class="string">'B'</span>,<span class="string">'C'</span>,<span class="string">'D'</span>,<span class="string">'E'</span>,<span class="string">'F'</span>,<span class="string">'G'</span>,<span class="string">'H'</span>,<span class="string">'I'</span>,<span class="string">'J'</span>,<span class="string">'K'</span>,<span class="string">'L'</span>,<span class="string">'M'</span>,<span class="string">'N'</span>,<span class="string">'O'</span>,<span class="string">'P'</span>,<span class="string">'Q'</span>,<span class="string">'R'</span>,<span class="string">'S'</span>,</span><br><span class="line">                <span class="string">'T'</span>,<span class="string">'U'</span>,<span class="string">'V'</span>,<span class="string">'W'</span>,<span class="string">'X'</span>,<span class="string">'Y'</span>,<span class="string">'Z'</span>&#125;;</span><br><span class="line">        <span class="keyword">boolean</span> flags[]=<span class="keyword">new</span> <span class="keyword">boolean</span>[letters.length];  <span class="comment">//记载字母是否被选中</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;chs.length;i++) &#123;               <span class="comment">//随机选择5个字母</span></span><br><span class="line">            <span class="keyword">int</span> index;</span><br><span class="line">            <span class="keyword">do</span> &#123;</span><br><span class="line">                index =(<span class="keyword">int</span>)(Math.random()*(letters.length));  <span class="comment">//0到25的随机数</span></span><br><span class="line">            &#125;<span class="keyword">while</span>(flags[index]==<span class="keyword">true</span>);   <span class="comment">//当下标对应的开关为true时，表示已存过，应重新生成index</span></span><br><span class="line">                                          <span class="comment">//当下标对应的开头为false时，表示未存过，则index可用，do...while结束</span></span><br><span class="line">            chs[i]=letters[index];</span><br><span class="line">            flags[index]=<span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> chs;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 比较玩家输入字母序列和程序所生成字母序列，逐一比较字符以及位置，并记载比较结果</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> chs</span></span><br><span class="line"><span class="comment">     *            程序生成字母序列</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> input</span></span><br><span class="line"><span class="comment">     *            玩家输入字符序列</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 存储比较的结果</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> []check (<span class="keyword">char</span>[] chs,<span class="keyword">char</span>[] input) &#123;</span><br><span class="line">        <span class="keyword">int</span> result[]=<span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;input.length;i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;chs.length;j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(input[i]==chs[j]) &#123;</span><br><span class="line">                    result[<span class="number">1</span>]++;</span><br><span class="line">                    <span class="keyword">if</span>(i==j) &#123;</span><br><span class="line">                        result[<span class="number">0</span>]++;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看完java基础语法后，写了这个猜字母的小游戏，以此来检验和夯实知识。<br>还有，这个游戏要迅速猜中有点难度。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java基础/" rel="tag"># java基础</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/22/你好，Hexo/" rel="next" title="你好，Hexo">
+                <i class="fa fa-chevron-left"></i> 你好，Hexo
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542974213775&di=9de8cc5f8486fc92bccc2f0773e62909&imgtype=0&src=http%3A%2F%2Fwww.officedoyen.com%2Fuploads%2Fallimg%2F150402%2F1-150402001646100-lp.jpg" alt="nlxr">
+            
+              <p class="site-author-name" itemprop="name">nlxr</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/nlxr" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#java基础实现猜字母游戏"><span class="nav-number">1.</span> <span class="nav-text">java基础实现猜字母游戏</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#内容"><span class="nav-number">1.1.</span> <span class="nav-text">内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#程序设计及内容"><span class="nav-number">1.2.</span> <span class="nav-text">程序设计及内容</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-实现字母生成方法"><span class="nav-number">1.2.0.0.1.</span> <span class="nav-text">1.实现字母生成方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-实现字母检测方法"><span class="nav-number">1.2.0.0.2.</span> <span class="nav-text">2.实现字母检测方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-实现主方法"><span class="nav-number">1.2.0.0.3.</span> <span class="nav-text">3.实现主方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-完整代码"><span class="nav-number">1.2.0.0.4.</span> <span class="nav-text">4.完整代码</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nlxr</span>
+
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+  <div class="powered-by">Powered by </div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash;  v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
